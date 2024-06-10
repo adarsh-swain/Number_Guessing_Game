@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f7ff;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #007acc;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            font-size: 1em;
+            margin: 10px 5px;
+            width: 60px;
+            border: 1px solid #007acc;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005c99;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        span {
+            font-weight: bold;
+            color: #ff4500;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+
+            input[type="number"] {
+                width: 80px;
+            }
+
+            button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Guess the Number!</h1>
+    <p>Attempts: <span th:text="${attempts}">0</span></p>
+    <form th:if="${!isCorrect && !isGameOver}" action="/guess" method="post">
+        <input type="number" name="number" min="1" max="100" required>
+        <button type="submit">Guess</button>
+    </form>
+    <p th:text="${hint}"></p>
+    <p th:if="${isCorrect}"></p>
+    <p th:if="${isGameOver && !isCorrect}">
+        Game Over! You've used all your attempts. The correct number was 
+        <span th:text="${targetNumber}"></span>.
+    </p>
+    <form action="/reset" method="get">
+        <button type="submit">Play Again</button>
+    </form>
+</body>
+
+</html>
